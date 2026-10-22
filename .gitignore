@@ -1,0 +1,26 @@
+# 本项目 git 忽略清单
+# 原则：只传程序文件（index.html + src/），不传数据、产物、测试残留、开发记录。
+
+# 产出物（含 579MB 测试残留，绝不上传）
+/output/
+
+# 输入数据（你的商品资料，隐私，不上传）
+/data/
+
+# 素材（若将来加了字体/底图，需单独评估是否公开）
+/assets/
+
+# 测试脚本（开发用，不随网页发布）
+/tests/
+
+# 开发过程文档（写给 AI 和你的，不随网页发布）
+/docs/
+AGENTS.md
+README.md
+
+# WorkBuddy 项目数据
+/.workbuddy/
+
+# 系统/编辑器杂项
+.DS_Store
+Thumbs.db

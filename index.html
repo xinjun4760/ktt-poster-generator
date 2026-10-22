@@ -1,0 +1,143 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>快团团商品海报生成器</title>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%23ff4d57'/%3E%3Ctext x='32' y='42' font-size='34' text-anchor='middle' fill='white'%3E团%3C/text%3E%3C/svg%3E">
+  <link rel="stylesheet" href="src/style.css">
+</head>
+<body>
+  <main class="app">
+    <section class="editor" aria-label="素材信息填写">
+      <div class="brand">
+        <div class="mark">🛒</div>
+        <h1>快团团素材生成器</h1>
+        <span class="badge">本地版</span>
+      </div>
+
+      <div class="section">
+        <p class="section-title">版式模板</p>
+        <div class="template-row" role="group" aria-label="选择版式">
+          <button class="template-option active" type="button" data-template="classic">
+            <div class="swatch" style="--accent:#ff4d57"></div>
+            居中促销
+          </button>
+          <button class="template-option" type="button" data-template="clean">
+            <div class="swatch" style="--accent:#13a8c7"></div>
+            左图清单
+          </button>
+          <button class="template-option" type="button" data-template="boom">
+            <div class="swatch" style="--accent:#ff6c35"></div>
+            大图爆款
+          </button>
+        </div>
+      </div>
+
+      <div class="section">
+        <p class="section-title">基础信息</p>
+        <div class="field">
+          <label for="topTag">顶部标签</label>
+          <input id="topTag" type="text" value="今日开团">
+        </div>
+        <div class="field">
+          <label for="brandName">团长昵称 / 品牌</label>
+          <input id="brandName" type="text" value="小美优选·团长">
+        </div>
+        <div class="field">
+          <label for="productTitle">商品标题</label>
+          <input id="productTitle" type="text" value="【新疆直发】阿克苏冰糖心苹果 5斤装">
+        </div>
+        <div class="field">
+          <label for="subtitle">副标题 / 一句话卖点</label>
+          <input id="subtitle" type="text" value="咬一口爆汁甜脆 · 产地现摘现发">
+        </div>
+      </div>
+
+      <div class="section">
+        <p class="section-title">图片素材</p>
+        <div class="field">
+          <label for="productImage">商品主图</label>
+          <input id="productImage" type="file" accept="image/*">
+          <div class="hint">推荐 3:4；方图会自动按 1:1 展示，预览和导出都只在本机处理。</div>
+        </div>
+        <div class="grid-2">
+          <div class="field">
+            <label for="imageRatio">图片展示比例</label>
+            <select id="imageRatio">
+              <option value="auto">自动识别</option>
+              <option value="3:4">3:4 竖图</option>
+              <option value="1:1">1:1 方图</option>
+              <option value="free">保留原图比例</option>
+            </select>
+          </div>
+          <div class="field">
+            <label for="imageFit">图片适配方式</label>
+            <select id="imageFit">
+              <option value="contain">完整展示</option>
+              <option value="cover">铺满裁切</option>
+            </select>
+          </div>
+        </div>
+        <div class="field">
+          <label for="qrImage">二维码</label>
+          <input id="qrImage" type="file" accept="image/*">
+          <div class="hint">上传团长二维码或商品码。</div>
+        </div>
+      </div>
+
+      <div class="section">
+        <p class="section-title">核心卖点</p>
+        <div id="points" class="points"></div>
+        <button id="addPoint" class="add-btn" type="button">+ 添加一条卖点</button>
+      </div>
+
+      <div class="section">
+        <p class="section-title">价格和转化文案</p>
+        <div class="grid-2">
+          <div class="field">
+            <label for="originalPrice">原价 ¥</label>
+            <input id="originalPrice" type="number" value="39.9" step="0.1">
+          </div>
+          <div class="field">
+            <label for="salePrice">团购价 ¥</label>
+            <input id="salePrice" type="number" value="19.9" step="0.1">
+          </div>
+        </div>
+        <div class="field">
+          <label for="leaderNote">团长说</label>
+          <textarea id="leaderNote">我自己吃了两箱，真的甜！这个价格基本就是产地价了，库存不多，手慢无～</textarea>
+        </div>
+        <div class="field">
+          <label for="shipping">规格 / 发货信息</label>
+          <input id="shipping" type="text" value="5斤/箱 · 默认圆通 · 48h 内发货 · 坏果包赔">
+        </div>
+        <div class="grid-2">
+          <div class="field">
+            <label for="buttonMain">按钮主文案</label>
+            <input id="buttonMain" type="text" value="长按识别 跟团购买">
+          </div>
+          <div class="field">
+            <label for="buttonSub">按钮副文案</label>
+            <input id="buttonSub" type="text" value="早买早发 · 手慢无">
+          </div>
+        </div>
+      </div>
+
+      <div class="actions">
+        <button id="resetDemo" class="reset-btn" type="button">恢复示例</button>
+        <button id="exportPng" class="export-btn" type="button">导出 PNG</button>
+      </div>
+    </section>
+
+    <section class="preview-wrap" aria-label="素材预览">
+      <article id="poster" class="phone">
+        <canvas id="previewCanvas" class="preview-canvas" width="720" height="1280" aria-label="素材预览画布"></canvas>
+      </article>
+    </section>
+  </main>
+
+  <script src="src/poster.js"></script>
+  <script src="src/app.js"></script>
+</body>
+</html>
